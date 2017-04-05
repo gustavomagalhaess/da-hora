@@ -15,7 +15,7 @@ Twig_Autoloader::register();
 
 $router = new \Core\Router(); // Classe de rotas
 // Métodos que adicionam as rotas no sistema
-$router->addRoute('', array('controller' => 'Endereco', 'action' => 'consultarCep')); // Rota default
+$router->addRoute('', array('controller' => 'Endereco', 'action' => 'consultar-cep')); // Rota default
 $router->addRoute('{controller}/{action}'); // Pradrão de rota
 $router->addRoute('{controller}/{action}/{id:\d+}'); // Padrão de rota com id
 $url = $_SERVER['QUERY_STRING']; //resquisição url
