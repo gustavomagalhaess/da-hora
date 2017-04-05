@@ -1,0 +1,106 @@
+    {% extends "base.html" %}
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
+    {% block content %}
+        {{ parent() }}
+        <div class="content container">
+            <fieldset>
+                <div id="cepForm">
+                    <legend class="text-center">Consultar Restaurante</legend>
+                    <h3 class="text-center">Informe o seu CEP para verificar a unidade mais próxima a você.</h3>
+                    <div class="row">
+                        <div class="cepCell">
+                            <form role="form" class="form" id="formConsultarCEP">
+                                <div class="input-group">
+                                    <input class="form-control cep" type="text" id="cep" placeholder="Digite seu CEP">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-danger btn-block" id="btnBuscar" type="button">Buscar</button>
+                                    </span>
+                                </div>
+                            </form>
+                            <br />
+                            <div id="mensagem" class="alert alert-danger text-center">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                {% if mensagem %}
+                                    <strong>{{ mensagem }}</strong>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="enderecoForm" class="hidden">
+                    <legend class="text-center">Endereço de Entrega</legend>
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-3">
+                            <form role="form" class="form" id="frmCadastrarEndereco">
+                                <input type="hidden" id="num_geocodigo" name="num_geocodigo" />
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label for="dsc_titulo">Título</label>
+                                            <input class="form-control" type="text" id="dsc_titulo" name="dsc_titulo"
+                                                   placeholder="Nome do local" required/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-8">
+                                        <div class="form-group">
+                                            <label for="dsc_endereco">Logradouro</label>
+                                            <input class="form-control" type="text" id="dsc_endereco" name="dsc_endereco"
+                                                   placeholder="Endereço" required readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label for="num_endereco">Número</label>
+                                            <input class="form-control" type="text" id="num_endereco" name="num_endereco"
+                                                   required/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label for="dsc_complemento">Complemento</label>
+                                            <input class="form-control" type="text" id="dsc_complemento" name="dsc_complemento"
+                                                   placeholder="Complemento" required/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label for="nom_bairro">Bairro</label>
+                                            <input class="form-control" type="text" id="nom_bairro" name="nom_bairro" required readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label for="num_cep">CEP</label>
+                                            <input class="form-control cep" type="text" id="num_cep" name="num_cep" required readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <input class="btn btn-danger btn-block" id="btnCadastrar" type="button" value="Cadastrar"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    {% endblock %}
+    {% block footer %}
+        <script type="text/javascript" charset="utf8" src="/includes/js/jquery.mask.min.js"></script>
+        {{ parent() }}
+        <script type="text/javascript" charset="utf8" src="/includes/js/validate.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="/includes/js/endereco.js"></script>
+    {% endblock %}

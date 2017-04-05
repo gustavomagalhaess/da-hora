@@ -1,0 +1,19 @@
+    {% extends "base.html" %}
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
+    {% block content %}
+        {{ parent() }}
+        <div class="content container">
+            <fieldset>
+                <legend class="text-center">Erro - 404</legend>
+                <p>Página não encontrada.</p>
+            </fieldset>
+        </div>
+    {% endblock %}
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}

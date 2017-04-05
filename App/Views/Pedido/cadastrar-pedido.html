@@ -1,0 +1,184 @@
+    {% extends "base.html" %}
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
+    {% block content %}
+        {{ parent() }}
+    <div class="content container">
+        <fieldset>
+            <legend class="text-center"><h3>Pedido</h3></legend>
+            <form id="cadastrarPedido" role="form">
+                <input type="hidden" name="num_seq_loja" value="{{ loja.num_seq_loja }}"/>
+                <input type="hidden" name="num_seq_usuario" value="{{ usuario.id }}"/>
+                <input type="hidden" name="num_seq_situacao" value="1"/>
+                <input type="hidden" name="val_pedido" value="{{ valPedido }}"/>
+                <input type="hidden" name="val_desconto" value="{{ valDesconto }}"/>
+                <input type="hidden" name="val_acrescimo" value="{{ valAcrescimo }}"/>
+                <input type="hidden" name="val_total" value="{{ valTotal }}"/>
+                <input type="hidden" name="tp_forma_pagamento" value="1"/>
+                <input type="hidden" name="tp_tipo_entrega" value="1"/>
+                <input type="hidden" name="num_cod_seg" value="123"/>
+                <input type="hidden" name="num_seq_empresa" value="{{ formasPagamento.num_seq_empresa }}"/>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <fieldset>
+                            <legend class="text-center"><h4>Endereço de entrega</h4></legend>
+                            <address>
+                                {% if endereco is not empty %}
+                                    <h5>{{ endereco.dsc_titulo }}</h5>
+                                    {{ endereco.dsc_endereco }}, nº{{ endereco.num_endereco }}
+                                {% if endereco.dsc_complemento is not empty %}
+                                    ({{ endereco.dsc_complemento }})
+                                {% endif %}
+                                    , {{ endereco.nom_bairro }}<br />
+                                    {{ endereco.num_cep }}
+                                {% else %}
+                                <p>Não há endereço cadastrado. Cadastre ao menos um endereço para entrega!</p>
+                                {% endif %}
+                            </address>
+                        </fieldset>
+                        <fieldset>
+                            <legend class="text-center"><h4>Forma de pagamento</h4></legend>
+                            <p><strong>Escolha a forma de pagamento:</strong></p>
+                            {% if formasPagamento.dadosPagamento is not empty %}
+                            <ul class="list-group">
+                                {% for formaPagamento in formasPagamento.dadosPagamento %}
+                                <li class="list-group-item">
+                                    <input type="radio" id="num_seq_form_pag_"{{ formaPagamento.num_seq_form_pag }} name="num_seq_form_pag"
+                                           value="{{ formaPagamento.num_seq_form_pag }}"
+                                           required/> {{ formaPagamento.dsc_forma_pagamento }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <p>Não há formas de pagamento cadastradas no sistema</p>
+                            {% endif %}
+                        </fieldset>
+                        <div id="cartao">
+                            <fieldset>
+                                <legend class="text-center"><h4>Cartões</h4></legend>
+                                <p><strong>Escolha o cartão:</strong></p>
+                                {% if formasPagamento.dadosPagamento is not empty %}
+                                    {% if cartoes is not empty %}
+                                <ul class="list-group">
+                                        {% for cartao in cartoes %}
+                                    <li class="list-group-item">
+                                        <input type="radio" name="num_seq_cartao"
+                                               value="{{ cartao.num_seq_cartao }}" required />
+                                            {{ cartao.num_cartao[0:4] }}&nbsp;
+                                            {{ cartao.num_cartao[4:4] }}&nbsp;
+                                            {{ cartao.num_cartao[8:4] }}&nbsp;
+                                            {{ cartao.num_cartao[12:4] }}&nbsp;
+                                        - <strong>Código de segurança:</strong> <input type='text' name='num_cod_seg' size='3' />
+                                    </li>
+                                        {% endfor %}
+                                    <li class="list-group-item text-center">
+                                        <a href="/cartao/cadastrar-cartao">Cadastrar Cartão</a>
+                                    </li>
+                                </ul>
+                                    {% else %}
+                                <p>Não há cartão cadastrado. Cadastre ao menos um cartão para pagamento!
+                                    <a href="/cartao/cadastrar-cartao">Cadastrar Cartão</a>
+                                </p>
+                                    {% endif %}
+                                {% endif %}
+                            </fieldset>
+                        </div>
+                        <div id="cartaoBandeira">
+                            <fieldset>
+                                <legend class="text-center"><h4>Bandeiras</h4></legend>
+                                <p><strong>Escolha a bandeira:</strong></p>
+                                {% if formasPagamento.dadosPagamento is not empty %}
+                                {% if tipoCartoes is not empty %}
+                                <ul class="list-group">
+                                    {% for tipoCartao in tipoCartoes %}
+                                    <li class="list-group-item">
+                                        <input type="radio" id="num_seq_tipo" name="num_seq_tipo"
+                                               value="{{ tipoCartao.dsc_cartao }}" required /> {{ tipoCartao.dsc_cartao }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <p>Não há tipo de cartão cadastrado na loja!</p>
+                                {% endif %}
+                                {% endif %}
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 ">
+                        <fieldset>
+                            <legend  class="text-center"><h4>Pedido</h4></legend>
+                            <ul class="list-unstyled">
+                                {% if pedidos is not empty %}
+                                    {% set valPedido = 0 %}
+                                    {% set valDesconto = 0 %}
+                                    {% set valorOpcao = 0 %}
+                                    {% set valAcrescimo = 0 %}
+                                    {% set valTotal = 0 %}
+                                        {% for pedido in pedidos.pedido %}
+                                            {% set valPedido = varPedido + pedido.produto.val_produto_desconto %}
+                                            {% if pedido.Acompanhamentos is not empty %}
+                                                {% for acompanhamento in pedido.Acompanhamentos %}
+                                                    {% set valPedido = valPedido + acompanhamento.val_acompanhamento %}
+                                                {% endfor %}
+                                            {% elseif pedido.Opcoes is not empty %}
+                                                {% for opcao in pedido.Opcoes %}
+                                                    {% set valorOpcao = opcao.val_opcao %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% set valTotal = valPedido + valorOpcao + valDesconto + valAcrescimo %}
+                                    {% for pedido in pedidos.pedido %}
+                                <li>
+                                    <strong>{{ pedido.produto.nom_produto }}</strong> -
+                                    <strong>R${{ pedido.produto.val_produto | number_format(2, ',', '.') }}</strong>
+                                </li>
+                                <li>
+                                    <ul>
+                                            {% if pedido.Acompanhamentos is not empty %}
+                                            {% for acompanhamento in pedido.Acompanhamentos %}
+                                        <li>
+                                                {{ acompanhamento.nom_acompanhamento }}
+                                                {% if acompanhamento.val_acompanhamento != 0 %}
+                                                    - R${{ acompanhamento.val_acompanhamento | number_format(2, ',', '.') }}
+                                                {% endif%}
+                                        </li>
+                                            {% endfor %}
+                                            {% elseif pedido.Opcoes is not empty %}
+                                            {% for opcao in pedido.Opcoes %}
+                                        <li>
+                                                {{ opcao.nom_opcao }} - {{ opcao.val_opcao | number_format(2, ',', '.') }}
+                                        </li>
+                                            {% endfor %}
+                                            {% endif %}
+                                    </ul>
+                                </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </fieldset>
+                        <div class="panel-footer">
+                            <h4 class="text-center">Valor Total: R${{ valTotal | number_format(2, ',', '.') }}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <input type="button" class="btn btn-block btn-danger" value="Cancelar" onClick="cancelarPedido()"/>
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="submit" class="btn btn-block btn-danger" value="Finalizar Pedido" onClick="return validarPedido()"/>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+    {% endblock %}
+    {% block footer %}
+        <script type="text/javascript" charset="utf8" src="/includes/js/jquery.mask.min.js"></script>
+        {{ parent() }}
+        <script type="text/javascript" charset="utf8" src="/includes/js/pedido.js"></script>
+    {% endblock %}

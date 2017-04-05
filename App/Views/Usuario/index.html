@@ -1,0 +1,95 @@
+    {% extends "base.html" %}
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
+    {% block content %}
+        {{ parent() }}
+        <div class="content container">
+        <fieldset>
+            <legend class="text-center">Cadastro de Cliente</legend>
+            <div class="row">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <form class="form-horizontal" id="cadastroUsuario" role="form">
+                        <div class="form-group row">
+                            <label class="form-control-label col-xs-3 text-right" for="nome_usuario">Nome</label>
+                            <div class="col-xs-9">
+                                <input class="form-control" type="text" id="nome_usuario" name="nome_usuario"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="form-control-label col-xs-3 text-right" for="cpf_usuario">CPF</label>
+                            <div class="col-xs-4">
+                                <input class="form-control" type="text" id="cpf_usuario" name="cpf_usuario"/>
+                            </div>
+                            <label class="form-control-label col-xs-2 text-right" for="num_cel">Celular</label>
+                            <div class="col-xs-3">
+                                <input class="form-control" type="text" id="num_cel" name="num_cel"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="form-control-label col-xs-3 text-right" for="dsc_email">E-mail</label>
+                            <div class="col-xs-9">
+                                <input class="form-control" type="email" id="dsc_email" name="dsc_email"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="form-control-label col-xs-3 text-right" for="dt_nascimento">Nascimento</label>
+                            <div class="col-xs-4">
+                                <input class="form-control" type="text" id="dt_nascimento" name="dt_nascimento"/>
+                            </div>
+                            <label class="form-control-label col-xs-2 text-right" for="dsc_sexo">Sexo</label>
+                            <div class="col-xs-3">
+                                <select class="form-control" id="dsc_sexo" name="dsc_sexo">
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Feminino">Feminino</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="form-control-label col-xs-3 text-right" for="url_foto">Escolher Foto</label>
+                            <div class="col-xs-9">
+                                <input type="file" id="url_foto" name="url_foto"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="form-control-label col-xs-3 text-right" for="dsc_senha">Senha</label>
+                            <div class="col-xs-9">
+                                <input class="form-control" type="password" id="dsc_senha" name="dsc_senha"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="form-control-label col-xs-3 text-right" for="dsc_senha2">Repetir senha</label>
+                            <div class="col-xs-9">
+                                <input class="form-control" type="password" id="dsc_senha2" name="dsc_senha2"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <input class="btn btn-danger btn-block" id="btnCadastrarUsuario" type="button" value="Salvar Cadastro"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-xs-offset-3">
+                    <div id="mensagem" class="alert alert-danger text-center">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {% if mensagem is not empty %}
+                        <strong>{{ mensagem }}</strong>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    {% endblock %}
+    {% block footer %}
+        <script type="text/javascript" charset="utf8" src="/includes/js/jquery.mask.min.js"></script>
+        {{ parent() }}
+        <script type="text/javascript" charset="utf8" src="/includes/js/validate.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="/includes/js/usuario.js"></script>
+    {% endblock %}

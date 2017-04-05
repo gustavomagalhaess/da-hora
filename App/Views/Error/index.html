@@ -1,0 +1,28 @@
+    {% extends "base.html" %}
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
+    {% block content %}
+        {{ parent() }}
+    <div class="content container">
+        <fieldset>
+            <legend class="text-center">Erro</legend>
+            <div class="row">
+                <div class="col-xs-6 col-xs-offset-3">
+                    <div id="mensagem" class="alert alert-danger text-center">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {% if mensagem is not empty %}
+                        <strong>{{ mensagem }}</strong>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    {% endblock %}
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}

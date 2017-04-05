@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+{% block nav %}
+{{ parent() }}
+{% endblock %}
+{% block content %}
+{{ parent() }}
+<div class="content container">
+    <fieldset>
+        <legend class="text-center">Cadastrar Cartão</legend>
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+                <form class="form" id="cadastrarCartaoForm" role="form">
+                    <input type="hidden" id="num_seq_usuario" name="num_seq_usuario" value="{{ usuario.id }}"/>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="nom_titular">Nome do titular</label>
+                                <input type="text" class="form-control" id="nom_titular" name="nom_titular" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label for="num_mes_validade">Mês</label>
+                                <input type="text" class="form-control" id="num_mes_validade" name="num_mes_validade"
+                                       maxlength="2" required/>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label for="num_ano_validade">Ano</label>
+                                <input type="text" class="form-control" id="num_ano_validade" name="num_ano_validade"
+                                       maxlength="4" required/>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label for="num_seq_tipo">Tipo</label>
+                                <select class="form-control" id="num_seq_tipo" name="num_seq_tipo">
+                                    <option value="5">Diners Club</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="num_cartao1">Número do cartão</label>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <input class="form-control" type="text" id="num_cartao1"
+                                               name="num_cartao1" maxlength="4" required/>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input class="form-control" type="text" id="num_cartao2"
+                                               name="num_cartao2" maxlength="4" required/>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input class="form-control" type="text" id="num_cartao3"
+                                               name="num_cartao3" maxlength="4" required/>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input class="form-control" type="text" id="num_cartao4"
+                                               name="num_cartao4" maxlength="4" required/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <input type="button" id="btnCadastrarCartao" class="btn btn-block btn-danger"
+                                   value="Cadastrar Cartão"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+                <div id="mensagem" class="alert alert-danger text-center">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {% if mensagem is not empty %}
+                    <strong>{{ mensagem }}</strong>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+{% endblock %}
+{% block footer %}
+<script type="text/javascript" charset="utf8" src="/includes/js/jquery.mask.min.js"></script>
+{{ parent() }}
+<script type="text/javascript" charset="utf8" src="/includes/js/validate.min.js"></script>
+<script type="text/javascript" charset="utf8" src="/includes/js/cartao.js"></script>
+{% endblock %}

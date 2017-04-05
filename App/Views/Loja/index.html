@@ -1,0 +1,96 @@
+    {% extends "base.html" %}
+    {% block head %}
+        {{ parent() }}
+    <link rel="stylesheet" href="/includes/css/loja.css"/>
+    {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
+    {% block content %}
+        {{ parent() }}
+    <div class="content container">
+        <fieldset>
+            <legend class="text-center">{{ detalhes.nom_loja }}</legend>
+            <div class="contentcart">
+                <div class="col-md-2 categorias">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title text-center">Categorias</h3>
+                        </div>
+                        <div class="list-group">
+                            {% for categoria in categorias.Categoria %}
+                            <a class="list-group-item"
+                               onClick="listarCategoria({{ categoria.num_seq_categoria }}, {{ loja.num_seq_loja }})">
+                                {{ categoria.dsc_categoria }}
+                            </a>
+                            <input type="hidden" class="itensCategoria"
+                                   value="{{ categoria.num_seq_categoria }} | {{ loja.num_seq_loja }}"/>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+                <div id="detalheProdutoDiv" class="col-md-7">
+                    <table id="detalheProdutoTable" class="table table-hover table-condensed"></table>
+                </div>
+                <div class="col-xs-3 carrinho">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="text-center panel-title">Endereço de entrega</h3>
+                        </div>
+                        <div id="enderecoDiv">
+                            <address>
+                                <h4 class="text-center">{{ endereco.dsc_titulo }}</h4>
+                                <p>{{ endereco.dsc_endereco }}, nº {{ endereco.num_endereco }}</p>
+                                <p>{{ endereco.num_cep[0:2] }}.{{ endereco.num_cep[2:3] }}-{{ endereco.num_cep[5:3] }} -
+                                {{ endereco.nom_bairro }}</p>
+                            </address>
+                            <p class="text-center"><a href="/endereco/alterar-endereco">alterar endereço de entrega</a></p>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="text-center panel-title">Carrinho</h3>
+                        </div>
+                        <div id="carrinhoDiv">
+                            <h4 class="text-right">Total: <span id="totalCarrinhoSpan"></span></h4>
+                            <table class="table" id="carrinhoTable">
+                            </table>
+                            <p class="text-center">
+                                <button id="btnFinalizarPedido" class="btn btn-danger" onClick="finalizarPedido()">Finalizar
+                                    Pedido
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="text-center panel-title">Cartões aceitos</h3>
+                        </div>
+                        <div id="cartoesDiv" class="list-group">
+                            {% for cartao in cartoes.tipoCartao %}
+                            <span class="list-group-item">
+                                        {% if cartao != null and cartao != '' %}
+                                            {{ cartao.dsc_cartao }}
+                                        {% else %}
+                                            {{ 'Não há cartões!' }}
+                                        {% endif %}
+                                    </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="acompanhamentosDialog"></div>
+            <div id="opcoesDialog"></div>
+            <div id="observacao"></div>
+            <div id="qdeProduto"></div>
+            <div id="editarProduto"></div>
+        </fieldset>
+    </div>
+    {% endblock %}
+
+    {% block footer %}
+        {{ parent() }}
+        <script type="text/javascript" charset="utf8" src="/includes/js/loja.js"></script>
+    {% endblock %}

@@ -1,0 +1,106 @@
+    {% extends "base.html" %}
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
+    {% block content %}
+        {{ parent() }}
+        <div class="content container">
+            <fieldset>
+                <legend class="text-center">Finalizar Pedido</legend>
+                <form id="finalizarPedido" method="post" role="form">
+                    <div class="row">
+                    {% if enderecos is not empty %}
+                        <div class="col-xs-6 text-center">
+                            <h3>Endereço</h3>
+                        </div>
+                    {% endif %}
+                    {% if pedido is not empty %}
+                        <div class="col-xs-6 text-center">
+                            <h3>Pedido</h3>
+                        </div>
+                    {% endif %}
+                    </div>
+                    <div class="row">
+                    {% if enderecos is not empty %}
+                        <div class="col-xs-6">
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    <div class="form-group">
+                                        <label for="logradouro_curto">Logradouro</label>
+                                        <input class="form-control" type="text" id="logradouro_curto"
+                                               name="logradouro_curto"
+                                               value="{{ endereco.logradouro_curto }}"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label for="numero">Número</label>
+                                        <input class="form-control" type="text" id="numero" name="numero"
+                                               value="{{ endereco.numero }}"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label for="bairro">Bairro</label>
+                                        <input class="form-control" type="text" id="bairro" name="bairro"
+                                               value="{{ endereco.bairro }}"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label for="cidade">Cidade</label>
+                                        <input class="form-control" type="text" id="cidade" name="cidade"
+                                               value="{{ endereco.cidade }}"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label for="uf">UF</label>
+                                        <input class="form-control" type="text" id="uf" name="uf" value="{{ endereco.uf }}"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label for="cep">CEP</label>
+                                        <input class="form-control" type="text" id="cep" name="cep"
+                                               value="{{ enderecos.num_cep }}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if pedido is not empty %}
+                        <div class="col-xs-6">
+                        {% for item in pedido.pedido %}
+                            <div class="row">
+                                <div class="col-xs-6">{{ item.nom_produto }}</div>
+                                <div class="col-xs-6">{{ item.val_produto }}</div>
+                            </div>
+                            {% if item.Acompanhamento is not empty %}
+                                {% for acompanhamento in item.Acompanhamento %}
+                            <div class="row">
+                                <div class="col-xs-6">{{ acompanhamento.nom_acompanhamento }}</div>
+                                <div class="col-xs-6">{{ acompanhamento.val_acompanhamento }}</div>
+                            </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button id="btnFinalizarPedido" class="btn btn-block btn-danger">Finalizar Pedido</button>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+    {% endblock %}
+    {% block footer %}
+        {{ parent() }}
+        <script type="text/javascript" charset="utf8" src="/includes/js/pedido.js"></script>
+    {% endblock %}

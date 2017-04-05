@@ -1,0 +1,56 @@
+#carrinhoTable.table > tbody > tr > td,
+#carrinhoTable.table > tbody > tr > th {
+    font-size: 92%;
+    padding: 3px 2px 3px 1px;
+}
+
+#carrinhoTable i {
+    cursor: pointer;
+}
+
+#carrinhoDiv > h4 {
+    padding-right: 10px;
+}
+
+#enderecoDiv {
+    padding: 0 10px;
+}
+
+.carrinho {
+    margin: 0 auto;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.categorias {
+    padding: 0 0 1em 0.5em;
+}
+
+.categorias a {
+    padding: 6px 3px;
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+
+.totalprice {
+    font-size: 2em;
+}
+
+#detalheProdutoTbody .glyphicon.glyphicon-plus-sign, #acompanhamentosTable .glyphicon.glyphicon-plus-sign {
+    cursor: pointer;
+}
+
+div.content fieldset .contentcart {
+    margin: 0 -2em;
+}
+
+.imgProduto {
+    width: 70px;
+    height: 70px;
+}

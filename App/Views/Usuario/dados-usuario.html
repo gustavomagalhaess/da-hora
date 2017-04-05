@@ -1,0 +1,92 @@
+    {% extends "base.html" %}
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
+    {% block content %}
+        {{ parent() }}
+        <div class="content container">
+            <fieldset>
+                <legend class="text-center">Cadastro de Cliente</legend>
+                <div class="row">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <form id="formDadosUsuario" role="form">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <fieldset>
+                                        <legend class="text-center">
+                                            <h4><b>Cliente: </b>{{ usuario.usuario }}</h4>
+                                        </legend>
+                                        <p class="text-center"><b>Endereços cadastrados</b></p>
+                                        <ul class="list-group">
+                                        {% if enderecos is not empty %}
+                                            {% for endereco in enderecos %}
+                                            <li class="list-group-item">
+                                                {{ endereco.dsc_titulo }} - {{ endereco.dsc_endereco }} - {{ endereco.nom_bairro }}
+                                            </li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <li class="list-group-item"> Não há endereço cadastrado. Cadastre ao menos um endereço para entrega!</li>
+                                        {% endif %}
+                                        </ul>
+                                        <p class="text-center"><b>Cartões Cadastrados</b></p>
+                                        <ul class="list-group">
+                                        {% if cartoes is not empty %}
+                                            {% for cartao in cartoes %}
+                                            <li class="list-group-item">
+                                                {{ cartao.num_cartao[0:4] }}&nbsp;
+                                                {{ cartao.num_cartao[4:4] }}&nbsp;
+                                                {{ cartao.num_cartao[8:4] }}&nbsp;
+                                                {{ cartao.num_cartao[12:4] }}&nbsp;
+                                            </li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <li class="list-group-item">Não há cartão cadastrado. Cadastre ao menos um cartão para pagamento!</li>
+                                        {% endif %}
+                                        </ul>
+                                    </fieldset>
+                                </div>
+                                <div class="col-xs-6">
+                                    <fieldset>
+                                        <legend class="text-center">
+                                            <h4>Últimos Pedidos</h4>
+                                        </legend>
+                                        <ul class="list-group">
+                                        {% if ultimosPedidos is not empty %}
+                                            {% for pedido in ultimosPedidos %}
+                                            <li class="list-group-item">Pedido nº: {{ pedido.num_seq_pedido }} - valor: R${{ pedido.val_total }} - Situação: {{ pedido.dsc_situacao }}</li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <li class="list-group-item">Não há pedidos aprovados!</li>
+                                        {% endif %}
+                                        </ul>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-xs-offset-3">
+                                    <input id="btnContinuar" class="btn btn-block btn-danger" type="button" value="Continuar"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3">
+                        <div id="mensagem" class="alert alert-danger text-center">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {% if mensagem is not empty %}
+                            <strong>{{ mensagem }}</strong>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    {% endblock %}
+    {% block footer %}
+        {{ parent() }}
+        <script type="text/javascript" charset="utf8" src="/includes/js/usuario.js"></script>
+    {% endblock %}

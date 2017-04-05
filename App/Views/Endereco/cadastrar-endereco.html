@@ -1,0 +1,96 @@
+    {% extends "base.html" %}
+    {% block head %}
+        {{ parent() }}
+    {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
+    {% block content %}
+        {{ parent() }}
+        <div class="content container">
+            <fieldset>
+                <legend class="text-center">Cadastrar Endereço</legend>
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3">
+                        <form class="form" id="cadastrarEnderecoForm" role="form">
+                            <input type="hidden" id="num_seq_usuario" name="num_seq_usuario" value="{{ usuario.id }}"/>
+                            <input type="hidden" id="num_geocodigo" name="num_geocodigo"
+                                   value="{% if endereco is not empty %}
+                                            {{ endereco.codigomunicipio }}
+                                          {% endif %}"/>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="dsc_titulo">Título</label>
+                                        <input class="form-control" type="text" id="dsc_titulo" name="dsc_titulo"
+                                               placeholder="Nome do local"  />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <label for="dsc_endereco">Logradouro</label>
+                                        <input class="form-control" type="text" id="dsc_endereco" name="dsc_endereco"
+                                               value="{% if endereco is not empty %}
+                                                        {{ endereco.logradouro_curto }}
+                                                      {% endif %}"
+                                               placeholder="Endereço" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label for="num_endereco">Número</label>
+                                        <input class="form-control" type="text" id="num_endereco" name="num_endereco"
+                                               value="{% if endereco is not empty %}
+                                                        {{ endereco.numero }}
+                                                      {% endif %}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="dsc_complemento">Complemento</label>
+                                        <input class="form-control" type="text" id="dsc_complemento" name="dsc_complemento"
+                                               placeholder="Complemento" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label for="nom_bairro">Bairro</label>
+                                        <input class="form-control" type="text" id="nom_bairro" name="nom_bairro"
+                                               value="{% if endereco is not empty %}
+                                                        {{ endereco.bairro }}
+                                                      {% endif %}" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label for="num_cep">CEP</label>
+                                        <input class="form-control" type="text" id="num_cep" name="num_cep"
+                                               value="{% if endereco is not empty %}
+                                                        {{ endereco.cep }}
+                                                      {% endif %}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <input id="btnCadastrarEndereco" class="btn btn-danger btn-block" type="button" value="Cadastrar"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    {% endblock %}
+    {% block footer %}
+        <script type="text/javascript" charset="utf8" src="/includes/js/jquery.mask.min.js"></script>
+        {{ parent() }}
+        <script type="text/javascript" charset="utf8" src="/includes/js/validate.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="/includes/js/endereco.js"></script>
+    {% endblock %}
