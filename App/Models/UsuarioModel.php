@@ -53,14 +53,14 @@ class UsuarioModel
         $usuario = Session::getUsuario();
         $sEndereco = new EnderecoService();
         $enderecos = json_decode($sEndereco->buscarEndereco($usuario['id']));
-        if (!$enderecos->sucesso) {
-            throw new Exception($enderecos->erro);
-        }
+        /*if (!$enderecos->sucesso) {
+            throw new \Exception($enderecos->erro);
+        }*/
         $sCartao = new CartaoService();
         $cartoes = json_decode($sCartao->buscarCartao($usuario['id']));
-        if (!$cartoes->sucesso) {
-            throw new Exception($cartoes->erro);
-        }
+        /*if (!$cartoes->sucesso) {
+            throw new \Exception($cartoes->erro);
+        }*/
         $loja = Session::getLoja();
         if (isset($loja)) {
             $sLoja = new LojaService();
@@ -70,8 +70,8 @@ class UsuarioModel
         }
         $arrDadosUsuario = array(
             'usuario'        => $usuario,
-            'enderecos'      => (array)$enderecos->Endereco,
-            'cartoes'        => (array)$cartoes->cartao,
+            'enderecos'      => isset($enderecos->Endereco) ? (array)$enderecos->Endereco : null,
+            'cartoes'        => isset($cartoes->cartao) ? (array)$cartoes->cartao : null,
             'ultimosPedidos' => isset($ultimosPedidos->Pedidos) ? (array)$ultimosPedidos->Pedidos : null,
             'mensagem'       => isset($arrMensagem) ? $arrMensagem : null,
         );

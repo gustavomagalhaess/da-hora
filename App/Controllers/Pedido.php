@@ -37,7 +37,12 @@ class Pedido extends \Core\Controller
                 $arrPedido['endereco'] = Session::getEndereco();
                 View::renderTemplate('Pedido/cadastrar-pedido.html', $arrPedido);
             } else {
-                header('Location: /loja/buscar-loja-delivery');
+                $endereco = Session::getEndereco();
+                if (null !== $endereco) {
+                    header('Location: /loja/buscar-loja-delivery');
+                } else {
+                    header('Location: /');
+                }
             }
         } else {
             header('Location: /login/login');

@@ -32,7 +32,7 @@ $(document).ready(function () {
     }
 
     function cancelarPedido() {
-        window.location = "index.php?acao=consultarCEP";
+        window.location = "/endereco/consultar-cep";
     }
 
     $("#btnFinalizarPedido").click(function () {

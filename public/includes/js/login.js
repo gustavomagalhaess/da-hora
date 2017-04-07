@@ -28,7 +28,7 @@ $(document).ready(function () {
             function (data) {
                 data = JSON.parse(data);
                 if (data.logado) {
-                    window.location.href="/usuario/dados-usuario";
+                    window.location.href="/pedido/cadastrar-pedido";
                 } else {
                     $("#mensagem").attr("class", "alert alert-danger text-center");
                     $("#mensagem").append("<strong>"+data.erro+"</strong>");
